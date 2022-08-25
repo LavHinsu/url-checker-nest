@@ -4,11 +4,11 @@ import { Injectable, Logger } from '@nestjs/common';
 @Injectable()
 export class AppService {
   async checkUrlStatus(data: RequestData, metadata: Metadata): Promise<ReturnValue> {
-    
-    var formdata = new FormData();
+
+    const formdata = new FormData();
     formdata.append("url", data.url);
     
-    var requestOptions : RequestInit = {
+    const requestOptions : RequestInit = {
       method: 'POST',
       body: formdata,
       redirect: 'follow'
