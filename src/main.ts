@@ -10,7 +10,7 @@ const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule,
   options: {
     url: '0.0.0.0:50051',
     package: 'urlchecker',
-    protoPath: join(__dirname, '../UrlChecker/urlchecker.proto'),
+    protoPath: join(__dirname, '../../protofiles/urlchecker.proto'),
     loader: { keepCase: true },
   },
   

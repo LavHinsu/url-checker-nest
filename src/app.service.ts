@@ -3,8 +3,8 @@ import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  checkUrlStatus(data:string,metadata:Metadata): string {
-    Logger.log(data)
-    return data;
+  checkUrlStatus(data:RequestData,metadata:Metadata): ReturnValue {
+    Logger.log('requested to check url: ' + data.url)
+    return { "status": data.url };
   }
 }
