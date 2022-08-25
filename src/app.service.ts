@@ -4,7 +4,13 @@ import { Injectable, Logger } from '@nestjs/common';
 @Injectable()
 export class AppService {
   async checkUrlStatus(data: RequestData): Promise<ReturnValue> {
+
+    Logger.log('requested to check url: ' + data.url);
+
+    let GrpcResponse : string = 'clear_url'
+
     const formdata = new FormData();
+
     formdata.append('url', data.url);
 
     const requestOptions: RequestInit = {
@@ -13,12 +19,18 @@ export class AppService {
       redirect: 'follow',
     };
 
-    fetch('https://urlhaus-api.abuse.ch/v1/url/', requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log('error', error));
+    const res = await fetch('https://urlhaus-api.abuse.ch/v1/url/', requestOptions)
+      .then((response) => response.json())
+      .catch((error) => Logger.log('error', error));
 
-    Logger.debug('requested to check url: ' + data.url);
-    return { status: data.url };
+    if(res.query_status == "invalid_url"){
+      GrpcResponse = 'bad_url'
+    }
+    else if(res.threat !== undefined){
+      Logger.warn(`possible ${res.threat} found for url: ${data.url}`)
+      GrpcResponse = 'threat_found'
+    }
+
+    return { status: GrpcResponse };
   }
 }
