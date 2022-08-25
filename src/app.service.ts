@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Metadata } from '@grpc/grpc-js';
+import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  checkUrlStatus(data:string,metadata:Metadata): string {
+    Logger.log(data)
+    return data;
   }
 }

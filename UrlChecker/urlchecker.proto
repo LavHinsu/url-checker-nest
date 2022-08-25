@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package urlchecker;
+
+service UrlService {
+  rpc CheckUrl (UrlMessage) returns (ReturnValue) {}
+}
+
+message UrlMessage {
+  string url = 1;
+}
+
+message ReturnValue {
+  string status = 1;
+}
