@@ -3,8 +3,23 @@ import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  checkUrlStatus(data:RequestData,metadata:Metadata): ReturnValue {
-    Logger.log('requested to check url: ' + data.url)
+  async checkUrlStatus(data: RequestData, metadata: Metadata): Promise<ReturnValue> {
+    
+    var formdata = new FormData();
+    formdata.append("url", data.url);
+    
+    var requestOptions : RequestInit = {
+      method: 'POST',
+      body: formdata,
+      redirect: 'follow'
+    };
+    
+    fetch("https://urlhaus-api.abuse.ch/v1/url/", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+
+    Logger.debug('requested to check url: ' + data.url)
     return { "status": data.url };
   }
 }

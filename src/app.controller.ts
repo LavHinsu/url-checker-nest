@@ -9,7 +9,7 @@ export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @GrpcMethod('UrlService', 'CheckUrl')
-  checkUrlStatus(data: RequestData, metadata: Metadata) : ReturnValue {
+  checkUrlStatus(data: RequestData, metadata: Metadata) : Promise<ReturnValue> {
     return this.appService.checkUrlStatus(data,metadata)
   }
 }
