@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A simple gRPC service written in nest to check whether any url passed to it is bad(malware, etc). uses URLHAUS under the hood
 
 ## Installation
 
